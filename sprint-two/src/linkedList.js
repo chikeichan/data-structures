@@ -2,7 +2,7 @@ var LinkedList = function(){
   var list = {};
   list.head = null;
   list.tail = null;
- 
+
 
   list.addToTail = function(value){
     var linkedListNode = Node(value);
@@ -23,7 +23,6 @@ var LinkedList = function(){
 
   list.contains = function(target){
     var findNext = function(node){
-      console.log(node.value === target);
       if(node.value === target){
         return true;
       }
