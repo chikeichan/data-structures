@@ -10,8 +10,11 @@ var Queue = function() {
 var queueMethods = {};
 
 queueMethods.enqueue = function(val){
+
+
   this[this.counter] = val;
   this.counter++;
+
 };
 
 queueMethods.dequeue = function(){
@@ -29,4 +32,8 @@ queueMethods.dequeue = function(){
 queueMethods.size = function(){
   return this.counter;
 }
+
+var jacky = Queue()
+
+jacky.push('a');
 

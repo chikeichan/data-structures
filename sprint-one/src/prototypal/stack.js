@@ -32,5 +32,3 @@ stackMethods.size = function(){
 
 };
 
-
-
