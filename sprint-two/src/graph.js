@@ -21,31 +21,35 @@ Graph.prototype.removeNode = function(node){
 };
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
-  for(var i = 0; i < this.storage[fromNode].edge.length;i++){
-    if (this.storage[fromNode].edge[i] === toNode){
+    if (this.storage[fromNode].edge[toNode]){
       return true;
     }
 
-  }
+
   return false;
 };
 
 Graph.prototype.addEdge = function(fromNode, toNode){
-  this.storage[fromNode].edge.push(toNode);
-  this.storage[toNode].edge.push(fromNode);
+  this.storage[fromNode].edge[toNode] = toNode;
+  this.storage[toNode].edge[fromNode] = fromNode;
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  delete this.storage[fromNode].edge[toNode];
+  delete this.storage[toNode].edge[fromNode];
 };
 
 Graph.prototype.forEachNode = function(cb){
+  for(var key in this.storage){
+    cb(key);
+  }
 };
 
 var GraphNode = function(value){
   var newNode = {};
 
   newNode.value = value;
-  newNode.edge = [];
+  newNode.edge = {};
 
   return newNode;
 }
