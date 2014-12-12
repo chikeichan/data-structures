@@ -37,10 +37,46 @@ methods.insert = function(value){
   }
 };
 
-methods.contains = function(){
+methods.contains = function(value){
+  //if value equals this.value
+  if(value === this.value){
+    return true;
+  }
+  //if value is greater than this.value
+  if(value > this.value){
+    //if this.right is null
+    if(!this.right){
+      return false;
+    } else{
+      return this.right.contains(value);
+    }
+  }
+  //if value is less than this.value
+  if(value < this.value){
+    //if this.left is null
+    if(!this.left){
+      return false;
+    } else{
+      return this.left.contains(value);
+    }
+  }
 
 };
-methods.depthFirstLog = function(){
+methods.depthFirstLog = function(cb){
+  //call cb on node value
+  cb(this.value);
+  //if there is this.right
+  if(!!this.right){
+    //depthFirstLog on this.right
+    this.right.depthFirstLog(cb);
+  }
+  //if there is this.left
+  if(!!this.left){
+    //depthFirstLog
+    this.left.depthFirstLog(cb);
+
+  }
+
 
 };
 
