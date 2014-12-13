@@ -13,7 +13,7 @@ var BinarySearchTree = function(value,level){
 };
 
 var methods = {};
-methods.insert = function(value){
+methods.insert = function(value,rebalance){
   var drill = function(tree,level){
     var newlevel = level+1;
     //if value > this.value
@@ -40,6 +40,11 @@ methods.insert = function(value){
     }
   }
   drill(this,1);
+
+
+  if(rebalance === false){
+    return;
+  }
   var values = this._findDepth();
 
   if(!!values){
@@ -47,7 +52,10 @@ methods.insert = function(value){
     this.value = values.splice(mid,1)[0];
     this.left = null;
     this.right = null;
-    this._rebalance(values);
+    var leftVals = values.slice(0,mid);
+    var rightVals = values.slice(mid,values.length);
+    this._rebalance(leftVals);
+    this._rebalance(rightVals);
   }
 };
 
@@ -92,13 +100,24 @@ methods.depthFirstLog = function(cb){
 };
 
 methods._rebalance = function(values){
-  var values = values.slice();
-  var mid = Math.floor(values.length/2);
 
-  if(values.length>0){
 
-    this.insert(values.splice(mid,1)[0]);
-    this._rebalance(values)
+  var val = values.slice();
+  var mid = Math.floor(val.length/2);
+  var midVal = val.splice(mid,1)[0];
+  var leftVals = val.slice(0,mid);
+  var rightVals = val.slice(mid,val.length);
+
+  this.insert(midVal,false);
+
+  console.log(values,leftVals,midVal,rightVals)
+
+  if(leftVals.length>0){
+    this._rebalance(leftVals);
+  }
+
+  if(rightVals.length>0){
+    this._rebalance(rightVals);
   }
 
 }
@@ -130,6 +149,7 @@ methods._findDepth = function(){
     values.sort(function(a,b){
       return a-b;
     })
+    console.log(values);
     return values;
   }
 }
