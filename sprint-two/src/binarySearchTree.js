@@ -41,10 +41,12 @@ methods.insert = function(value){
   }
   drill(this,1);
   var values = this._findDepth();
-  console.log(values);
+
   if(!!values){
     var mid = Math.floor(values.length/2);
-    this.value = values[values.splice(mid,1)];
+    this.value = values.splice(mid,1)[0];
+    this.left = null;
+    this.right = null;
     this._rebalance(values);
   }
 };
@@ -94,8 +96,9 @@ methods._rebalance = function(values){
   var mid = Math.floor(values.length/2);
 
   if(values.length>0){
-    this.insert(values.splice(mid,1));
-    this._rebalance(values);
+
+    this.insert(values.splice(mid,1)[0]);
+    this._rebalance(values)
   }
 
 }
