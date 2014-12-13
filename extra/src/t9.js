@@ -66,6 +66,7 @@ var T9 = function(){
 		var keys = keys.slice();
 		var key = +keys.shift();
 
+
 		if(keys.length === 0){
 			return tree.children[key].words;
 		}
@@ -107,6 +108,7 @@ var T9 = function(){
 
 	t9.size = function(){
 		var size = 0;
+
 
 		var addNext = function(tree){
 			size = size + tree.words.length;
