@@ -30,7 +30,14 @@ BloomFilterMethods.addValue = function(val){
   var hashVal0 = this.hash0(val);
   var hashVal1 = this.hash1(val);
   var hashVal2 = this.hash2(val);
-  console.log(hashVal0,hashVal1,hashVal2)
+  var add = function(i){
+    if(!this.slots[i]){
+      this.slots[i] = 1;
+    }
+  }
+  add.call(this,hashVal0);
+  add.call(this,hashVal1);
+  add.call(this,hashVal2);
 }
 
 BloomFilterMethods.capacity = function(){
@@ -41,4 +48,33 @@ BloomFilterMethods.capacity = function(){
     }
   }
   return counter;
+}
+
+BloomFilterMethods.contains = function(val){
+  var hashVal0 = this.hash0(val);
+  var hashVal1 = this.hash1(val);
+  var hashVal2 = this.hash2(val);
+  var result = true;
+  var search = function(i){
+    if(!this.slots[i]){
+      result = false;
+    }
+  }
+  search.call(this,hashVal0);
+  search.call(this,hashVal1);
+  search.call(this,hashVal2);
+
+  return result;
+}
+
+BloomFilterMethods.falsePositiveProb = function(){
+    var e = Math.E;
+    var k = this.slots.length-this.capacity();
+    var m = this.slots.length;
+    var n = 3;
+
+    prob = Math.round(Math.pow((1-Math.pow(e,(-k*n)/m)),k)*100)/100;
+
+
+  return prob;
 }
