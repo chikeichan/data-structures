@@ -12,7 +12,7 @@ describe('Scrabble', function() {
 
   it('should insert words', function(){
     scrabble.insert('cat');
-    expect().to.equal();
+    expect(scrabble.lookup(['c','a','t'])).to.equal();
   });
 
 });
