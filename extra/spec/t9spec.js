@@ -59,6 +59,7 @@ describe('T9', function() {
   });
 
   it('should lookup words from a library', function(){
+  	$('body').append('T9 Testing<input id="t9"></input><ol class="t9"></ol>')
     for(var i=0; i<4999; i++){
       var word = common[i].replace('-','');
       word = word.replace('\'','');
